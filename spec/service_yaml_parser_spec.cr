@@ -1,5 +1,5 @@
 require "./spec_helper"
-require "../src/glassy/kernel/service_yaml_parser"
+require "../src/glassy-kernel/service_yaml_parser"
 
 describe Glassy::Kernel::ServiceYamlParser do
   it "should make code" do

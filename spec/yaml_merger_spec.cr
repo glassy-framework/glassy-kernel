@@ -1,5 +1,5 @@
 require "./spec_helper"
-require "../src/glassy/kernel/yaml_merger"
+require "../src/glassy-kernel/yaml_merger"
 
 describe Glassy::Kernel::YamlMerger do
   it "should make code" do

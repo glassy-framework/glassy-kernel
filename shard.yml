@@ -1,4 +1,5 @@
-name: glassy/kernel
+name: glassy-kernel
+description: DI (Dependency Injection) Container for the Glassy Framework
 version: 0.1.0
 
 authors:

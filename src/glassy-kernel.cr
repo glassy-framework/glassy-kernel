@@ -1,4 +1,4 @@
-require "./kernel/kernel"
+require "./glassy-kernel/kernel"
 
 module Glassy::Kernel
   VERSION = "0.1.0"
