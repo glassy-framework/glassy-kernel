@@ -1,0 +1,9 @@
+name: glassy-kernel
+version: 0.1.0
+
+authors:
+  - Anderson Danilo <contato@andersondanilo.com>
+
+crystal: 0.35.1
+
+license: MIT

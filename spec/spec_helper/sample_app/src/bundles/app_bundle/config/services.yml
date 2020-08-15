@@ -1,0 +1,8 @@
+services:
+  my_logger_service:
+    class: MyLoggerService
+
+  my_service:
+    class: MyService
+    args:
+      - '@my_logger_service'
