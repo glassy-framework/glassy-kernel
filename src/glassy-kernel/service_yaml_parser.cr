@@ -23,7 +23,11 @@ module Glassy::Kernel
         if kwargs
           result += "(\n"
           kwargs.each do |arg_name, arg_value|
-            arg_value = arg_value.sub("@", "")
+            if arg_value.starts_with?("@")
+              arg_value = arg_value.sub("@", "")
+            else
+              arg_value = "\"#{arg_value}\""
+            end
             result += "    #{arg_name}: #{arg_value},\n"
           end
           result += "  )\n"

@@ -14,6 +14,7 @@ describe Glassy::Kernel::ServiceYamlParser do
           class: MyService
           kwargs:
             logger: '@logger'
+            name: 'my name'
 
       tags:
         log:
@@ -30,6 +31,7 @@ describe Glassy::Kernel::ServiceYamlParser do
     def my_service
       @my_service ||= MyService.new(
         logger: logger,
+        name: "my name",
       )
     end
 
