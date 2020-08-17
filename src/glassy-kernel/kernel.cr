@@ -22,4 +22,3 @@ module Glassy::Kernel
     end
   end
 end
-

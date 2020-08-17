@@ -7,34 +7,36 @@ describe Glassy::Kernel::ServiceYamlParser do
       services:
         logger:
           class: MyClass
-          tags:
+          tag:
             - log
 
         my_service:
           class: MyService
-          args:
-            - '@logger'
+          kwargs:
+            logger: '@logger'
 
-      tag_restrictions:
-        log: MyClass
+      tags:
+        log:
+          restriction: MyClass
     END
 
     parser = Glassy::Kernel::ServiceYamlParser.new(content_text)
-    code = parser.make_code()
+    code = parser.make_code
     expected = <<-END
     def logger
       @logger ||= MyClass.new
     end
 
     def my_service
-      @my_service ||= MyService.new(logger)
+      @my_service ||= MyService.new(
+        logger: logger,
+      )
     end
 
-    def list_log : Array(MyClass)
-      [logger]
+    def log_list : Array(MyClass)
+      [logger] of MyClass
     end
     END
     code.should eq(expected + "\n\n")
-
   end
 end

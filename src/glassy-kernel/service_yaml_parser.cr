@@ -16,22 +16,24 @@ module Glassy::Kernel
       yaml_file.services.each do |name, service_def|
         getter_name = "#{name}"
 
-        args = service_def.args
-        args_texts = [] of String
+        result += "def #{getter_name}\n"
+        result += "  @#{name} ||= #{service_def.klass}.new"
 
-        if args.is_a?(Array)
-          args_texts = args.map do |arg|
-            arg.gsub("@", "")
+        kwargs = service_def.kwargs
+        if kwargs
+          result += "(\n"
+          kwargs.each do |arg_name, arg_value|
+            arg_value = arg_value.sub("@", "")
+            result += "    #{arg_name}: #{arg_value},\n"
           end
+          result += "  )\n"
+        else
+          result += "\n"
         end
 
-        new_suffix = args_texts.size > 0 ? "(#{args_texts.join(", ")})" : ""
-
-        result += "def #{getter_name}\n"
-        result += "  @#{name} ||= #{service_def.klass}.new#{new_suffix}\n"
         result += "end\n"
 
-        tags = service_def.tags
+        tags = service_def.tag
         if tags.is_a?(Array)
           tags.each do |tag|
             unless getters_by_tag.has_key?(tag)
@@ -46,22 +48,17 @@ module Glassy::Kernel
 
       getters_by_tag.each do |tag, getters|
         restriction = nil
-        tag_restrictions = yaml_file.tag_restrictions
+        tags = yaml_file.tags
+        if tags
+          tag_def = tags.fetch(tag, nil)
 
-        if tag_restrictions.is_a?(Hash)
-          restriction = tag_restrictions.fetch(tag, nil)
+          if tag_def
+            result += "def #{tag}_list : Array(#{tag_def.restriction})\n"
+            result += "  [#{getters.join(", ")}] of #{tag_def.restriction}\n"
+            result += "end\n"
+            result += "\n"
+          end
         end
-
-        suffix = ""
-
-        if restriction
-          suffix = " : Array(#{restriction})"
-        end
-
-        result += "def list_#{tag}#{suffix}\n"
-        result += "  [#{getters.join(", ")}]\n"
-        result += "end\n"
-        result += "\n"
       end
 
       result

@@ -8,9 +8,9 @@ module Glassy::Kernel
       @[YAML::Field(key: "class")]
       property klass : String
 
-      property tags : Array(String)?
+      property tag : Array(String)?
 
-      property args : Array(String)?
+      property kwargs : Hash(String, String)?
     end
   end
 end

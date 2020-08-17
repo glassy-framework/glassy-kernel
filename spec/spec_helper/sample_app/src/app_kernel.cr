@@ -5,6 +5,6 @@ require "./bundles/other_bundle/other_bundle"
 class AppKernel < Glassy::Kernel::Kernel
   register_bundles [
     AppBundle,
-    OtherBundle
+    OtherBundle,
   ]
 end

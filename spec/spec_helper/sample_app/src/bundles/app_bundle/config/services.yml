@@ -4,5 +4,5 @@ services:
 
   my_service:
     class: MyService
-    args:
-      - '@my_logger_service'
+    kwargs:
+      logger: '@my_logger_service'

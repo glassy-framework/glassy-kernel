@@ -1,5 +1,6 @@
 require "yaml"
 require "./service_definition"
+require "./tag_definition"
 
 module Glassy::Kernel
   class ServiceYamlParser
@@ -8,7 +9,7 @@ module Glassy::Kernel
 
       property services : Hash(String, ServiceDefinition)
 
-      property tag_restrictions : Hash(String, String)?
+      property tags : Hash(String, TagDefinition)?
     end
   end
 end
