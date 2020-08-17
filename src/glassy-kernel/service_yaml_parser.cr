@@ -46,18 +46,20 @@ module Glassy::Kernel
         result += "\n"
       end
 
-      getters_by_tag.each do |tag, getters|
-        restriction = nil
-        tags = yaml_file.tags
-        if tags
-          tag_def = tags.fetch(tag, nil)
+      tags = yaml_file.tags
 
-          if tag_def
-            result += "def #{tag}_list : Array(#{tag_def.restriction})\n"
-            result += "  [#{getters.join(", ")}] of #{tag_def.restriction}\n"
-            result += "end\n"
-            result += "\n"
+      if tags
+        tags.each do |name, definition|
+          getters = getters_by_tag.fetch(name, nil)
+
+          if getters.nil?
+            getters = [] of String
           end
+
+          result += "def #{name}_list : Array(#{definition.restriction})\n"
+          result += "  [#{getters.join(", ")}] of #{definition.restriction}\n"
+          result += "end\n"
+          result += "\n"
         end
       end
 
