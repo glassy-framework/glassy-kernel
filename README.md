@@ -28,7 +28,8 @@ services:
     tag:
       - my_tag_example
   
-  logger: MyLogger
+  logger:
+    class: MyLogger
 ```
 
 Implement these classes as you like. After that you can implement the container as below.
