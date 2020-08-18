@@ -40,7 +40,7 @@ class AppBundle < Glassy::Kernel::Bundle
   SERVICES_PATH = "#{__DIR__}/config/services.yml"
 end
 
-class AppKernel
+class AppKernel < Glassy::Kernel::Kernel
   register_bundles [
     AppBundle
   ]
