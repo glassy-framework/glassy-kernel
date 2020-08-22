@@ -1,0 +1,21 @@
+name: Build Docs
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build_docs:
+    runs-on: ubuntu-latest
+
+    container:
+      image: crystallang/crystal
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build docs
+      run: crystal docs
+    - name: Push docs
+      run: git add -A docs && git commit -m "update docs" && git push
