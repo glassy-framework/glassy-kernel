@@ -1,15 +1,23 @@
 require "./container"
+require "./config"
 require "./bundle"
 
 module Glassy::Kernel
   class Kernel
     macro register_bundles(bundles)
       def initialize
-        @container = Container.new
+        @config = Glassy::Kernel::Config.new(config_paths)
+        @container = Container.new(@config)
       end
 
       def container
         @container
+      end
+
+      def config_paths : Array(String)
+        return [
+          "config/parameters.yml"
+        ]
       end
 
       class Container < Glassy::Kernel::Container

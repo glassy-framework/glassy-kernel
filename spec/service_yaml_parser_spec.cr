@@ -15,6 +15,9 @@ describe Glassy::Kernel::ServiceYamlParser do
           kwargs:
             logger: '@logger'
             name: 'my name'
+            port: '%http.port:Int32%'
+            port_opt: '%http.port:Int32?%'
+            other: '%other%'
 
       tags:
         log:
@@ -32,6 +35,9 @@ describe Glassy::Kernel::ServiceYamlParser do
       @my_service ||= MyService.new(
         logger: logger,
         name: "my name",
+        port: @config.get_Int32("http.port").not_nil!,
+        port_opt: @config.get_Int32("http.port"),
+        other: @config.get("other"),
       )
     end
 

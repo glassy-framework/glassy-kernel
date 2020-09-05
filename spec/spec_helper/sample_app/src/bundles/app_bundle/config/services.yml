@@ -6,3 +6,4 @@ services:
     class: MyService
     kwargs:
       logger: '@my_logger_service'
+      port: '%http.port:Int32%'

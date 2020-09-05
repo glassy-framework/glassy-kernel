@@ -25,6 +25,26 @@ module Glassy::Kernel
           kwargs.each do |arg_name, arg_value|
             if arg_value.starts_with?("@")
               arg_value = arg_value.sub("@", "")
+            elsif match = /%([^:]+)(:([^%]+))?%/.match(arg_value)
+              config_key = match[1]
+              config_type = match[3]?
+              if config_type.nil?
+                suffix = ""
+              else
+                if config_type.includes?("?")
+                  config_type = config_type.sub("?", "")
+                  suffix = ""
+                else
+                  config_type = config_type.sub("?", "")
+                  suffix = ".not_nil!"
+                end
+              end
+
+              if config_type
+                arg_value = "@config.get_#{config_type}(\"#{config_key}\")#{suffix}"
+              else
+                arg_value = "@config.get(\"#{config_key}\")"
+              end
             else
               arg_value = "\"#{arg_value}\""
             end
