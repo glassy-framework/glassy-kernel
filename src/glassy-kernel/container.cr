@@ -1,7 +1,9 @@
+require "./config"
+require "./kernel"
+
 module Glassy::Kernel
   abstract class Container
-    def initialize(@config : Glassy::Kernel::Config)
-      @config
+    def initialize(@config : Glassy::Kernel::Config, @kernel : Glassy::Kernel::Kernel)
     end
 
     macro load_service_paths(service_paths)
@@ -14,6 +16,10 @@ module Glassy::Kernel
 
     def config
       @config
+    end
+
+    def kernel
+      @kernel
     end
   end
 end

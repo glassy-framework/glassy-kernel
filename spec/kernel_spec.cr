@@ -6,6 +6,7 @@ describe Glassy::Kernel::Kernel do
       kernel = AppKernel.new
       kernel.container.my_service.say_hello.should eq("Hello")
       kernel.container.my_service.get_port.should eq(80)
+      kernel.bundle_names.should eq ["AppBundle", "OtherBundle"] of String
     end
   end
 end

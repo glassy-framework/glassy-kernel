@@ -11,7 +11,7 @@ module Glassy::Kernel
       end
 
       if contents.size == 0
-        raise "No file found"
+        raise "No file found (#{file_paths.join(", ")})"
       end
 
       initialize(YamlMerger.new(contents).merge)

@@ -1,6 +1,6 @@
 require "./container"
 
 module Glassy::Kernel
-  class Bundle
+  abstract class Bundle
   end
 end
