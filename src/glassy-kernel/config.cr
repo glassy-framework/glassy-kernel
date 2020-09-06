@@ -22,11 +22,11 @@ module Glassy::Kernel
     end
 
     def get(key : String, default : String? = nil) : String?
-      get_string(key, default)
+      get_s(key, default)
     end
 
     def get_String(key : String, default : String? = nil) : String?
-      get_string(key, default)
+      get_s(key, default)
     end
 
     def get_s(key : String, default : String? = nil) : String?
