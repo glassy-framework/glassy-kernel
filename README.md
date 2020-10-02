@@ -1,5 +1,7 @@
 # glassy-kernel
 
+[![CircleCI](https://circleci.com/gh/glassy-framework/glassy-kernel.svg?style=svg)](https://circleci.com/gh/glassy-framework/glassy-kernel)
+
 DI (Dependency Injection) Container for the Glassy Framework, based in bundles.
 
 Inspired by: [phoopy](https://github.com/phoopy/phoopy)
