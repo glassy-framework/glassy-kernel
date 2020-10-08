@@ -10,6 +10,8 @@ module Glassy::Kernel
 
       property tag : Array(String)?
 
+      property singleton : Bool?
+
       property kwargs : Hash(String, String)?
     end
   end

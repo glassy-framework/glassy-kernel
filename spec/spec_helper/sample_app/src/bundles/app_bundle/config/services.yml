@@ -1,9 +1,14 @@
 services:
-  my_logger_service:
+  app.my_logger_service:
     class: MyLoggerService
 
-  my_service:
+  app.my_service:
     class: MyService
     kwargs:
-      logger: '@my_logger_service'
+      logger: '@app.my_logger_service'
       port: '%http.port:Int32%'
+
+  echo_array_service:
+    class: EchoArrayService
+    kwargs:
+      arr: '%context(str_list):Array(String)%'

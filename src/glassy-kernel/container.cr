@@ -1,8 +1,13 @@
 require "./config"
 require "./kernel"
+require "./builder"
+require "./context"
 
 module Glassy::Kernel
   abstract class Container
+    alias Context = Glassy::Kernel::Context
+    alias Builder = Glassy::Kernel::Builder
+
     def initialize(@config : Glassy::Kernel::Config, @kernel : Glassy::Kernel::Kernel)
     end
 
