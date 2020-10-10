@@ -29,6 +29,7 @@ describe Glassy::Kernel::ServiceYamlParser do
     parser = Glassy::Kernel::ServiceYamlParser.new(content_text)
     code = parser.make_code
     expected = <<-END
+    @app_logger : MyClass?
     def app_logger(context : Context? = nil) : MyClass
       @app_logger ||= app_logger_builder.make(context)
     end
@@ -38,7 +39,13 @@ describe Glassy::Kernel::ServiceYamlParser do
         MyClass.new
       }, context)
     end
+    def app_logger_tag_builder(context : Context? = nil) : Builder(MyClass)
+      Builder(MyClass).new(->(context : Context) {
+        MyClass.new
+      }, context)
+    end
 
+    @app_my_service : MyService?
     def app_my_service(context : Context? = nil) : MyService
       app_my_service_builder.make(context)
     end
@@ -57,11 +64,11 @@ describe Glassy::Kernel::ServiceYamlParser do
     end
 
     def log_list(context : Context? = nil) : Array(MyClass)
-      [app_logger(context)] of MyClass
+      [app_logger(context).as(MyClass)] of MyClass
     end
 
     def log_builder_list(context : Context? = nil) : Array(Builder(MyClass))
-      [app_logger_builder(context)] of Builder(MyClass)
+      [app_logger_tag_builder(context).as(Builder(MyClass))] of Builder(MyClass)
     end
     END
 

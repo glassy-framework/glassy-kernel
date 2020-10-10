@@ -2,6 +2,8 @@ require "./context"
 
 module Glassy::Kernel
   class Builder(T)
+    alias Context = Glassy::Kernel::Context
+
     @parent_context : Context
 
     def initialize(@strategy : Proc(Context, T), context : Context? = nil)

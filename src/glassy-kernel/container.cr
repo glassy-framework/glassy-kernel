@@ -15,15 +15,15 @@ module Glassy::Kernel
       {{ run("#{__DIR__}/generate_container", service_paths.map { |s| s.resolve }.join('|')) }}
     end
 
-    def container
+    def container(context : Glassy::Kernel::Context? = nil)
       self
     end
 
-    def config
+    def config(context : Glassy::Kernel::Context? = nil)
       @config
     end
 
-    def kernel
+    def kernel(context : Glassy::Kernel::Context? = nil)
       @kernel
     end
   end
