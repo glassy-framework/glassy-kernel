@@ -18,11 +18,18 @@ module Glassy::Kernel
 
         result += "@#{getter_name} : #{service_def.klass}?\n"
         result += "def #{getter_name}(context : Context? = nil) : #{service_def.klass}\n"
+        result += "  unless @#{getter_name}.nil?\n"
+        result += "    return @#{getter_name}.not_nil!\n"
+        result += "  end\n"
+        result += "  instance = #{getter_name}_builder.make(context)\n"
         if service_def.singleton
-          result += "  @#{getter_name} ||= #{getter_name}_builder.make(context)\n"
-        else
-          result += "  #{getter_name}_builder.make(context)\n"
+          result += "  @#{getter_name} = instance\n"
         end
+        result += "  instance\n"
+        result += "end\n"
+        result += "\n"
+        result += "def #{getter_name}=(instance)\n"
+        result += "  @#{getter_name} = instance\n"
         result += "end\n"
 
         result += "\n"
